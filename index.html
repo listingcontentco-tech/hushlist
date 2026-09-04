@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HushList — the finds everyone's about to know about</title>
+<meta name="description" content="Five things worth knowing about before they're everywhere.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #14120F;
+    --bg-card: #1B1815;
+    --text: #F5F0E8;
+    --text-dim: #9C948A;
+    --gold: #E8A94A;
+    --gold-deep: #C4842E;
+    --coral: #FF5A4E;
+    --divider: #2A2521;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { background: var(--bg); scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  .hero {
+    padding: 64px 0 48px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(232,169,74,0.16) 0%, rgba(232,169,74,0) 70%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    background: rgba(255,90,78,0.12);
+    border: 1px solid rgba(255,90,78,0.35);
+    border-radius: 100px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--coral);
+    margin-bottom: 28px;
+    letter-spacing: 0.02em;
+  }
+
+  .badge .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--coral);
+    box-shadow: 0 0 8px var(--coral);
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 56px;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--gold);
+  }
+
+  .sub {
+    margin-top: 20px;
+    font-size: 17px;
+    color: var(--text-dim);
+    max-width: 40ch;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.55;
+  }
+
+  .hero-cta {
+    margin-top: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 30px;
+    background: var(--gold);
+    color: #14120F;
+    font-weight: 700;
+    font-size: 15.5px;
+    text-decoration: none;
+    border-radius: 6px;
+    box-shadow: 0 8px 30px -8px rgba(232,169,74,0.55);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .hero-cta:hover, .hero-cta:active {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 34px -6px rgba(232,169,74,0.7);
+  }
+
+  .list { padding: 56px 0 16px; }
+
+  .find {
+    background: var(--bg-card);
+    border: 1px solid var(--divider);
+    border-radius: 16px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .find.rank-1 { border-color: rgba(232,169,74,0.4); }
+
+  .rank-tag {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    background: rgba(20,18,15,0.75);
+    backdrop-filter: blur(6px);
+    border-radius: 100px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+  }
+
+  .rank-tag.hot { color: var(--coral); }
+
+  .photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(135deg, #232019, #1B1815);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .find-body { padding: 22px 22px 24px; }
+
+  .find-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 23px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .find-note {
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.55;
+    margin-bottom: 20px;
+  }
+
+  .find-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .price span {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-dim);
+    margin-left: 6px;
+  }
+
+  .get {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: var(--gold);
+    color: #14120F;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14.5px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+
+  .get:hover, .get:active {
+    background: #F2BC6C;
+    transform: translateY(-1px);
+  }
+
+  .disclosure {
+    padding: 40px 0 32px;
+    border-top: 1px solid var(--divider);
+    margin-top: 24px;
+  }
+
+  .disclosure p {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+
+  footer { padding: 0 0 56px; text-align: center; }
+  footer p { font-size: 12.5px; color: var(--text-dim); }
+
+  @media (max-width: 460px) {
+    h1 { font-size: 40px; }
+    .sub { font-size: 15.5px; }
+    .find-name { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="hero">
+      <div class="badge"><span class="dot"></span> UPDATED THIS WEEK</div>
+      <h1>Five things<br>worth knowing<br><em>before</em> everyone else</h1>
+      <p class="sub">No fifty-item roundups. Just the ones that actually earned a spot — starting with the one currently outselling everything else in its category.</p>
+      <a class="hero-cta" href="#list">See the list ↓</a>
+    </div>
+
+    <div class="list" id="list">
+
+      <div class="find rank-1">
+        <div class="rank-tag hot">🔥 #1 IN ITS CATEGORY</div>
+        <div class="photo"><img src="images/medicube.png" alt="Medicube Zero Pore Pad 2.0"></div>
+        <div class="find-body">
+          <div class="find-name">Medicube Zero Pore Pad 2.0</div>
+          <div class="find-note">Right now, this is the best-selling item in all of Beauty &amp; Personal Care on Amazon — not just skincare, the entire category. A dual-textured toner pad that's become the internet's go-to for pore care, and the reviews (22,000+) back up the hype.</div>
+          <div class="find-footer">
+            <div class="price">$18.90 <span>· 70 pads</span></div>
+            <a class="get" href="https://www.amazon.com/dp/B09V7Z4TJG?tag=hushlist-20" target="_blank" rel="noopener sponsored">Get it →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="find">
+        <div class="rank-tag">02</div>
+        <div class="photo"><img src="images/stanley.png" alt="Stanley Quencher H2.0, 40oz"></div>
+        <div class="find-body">
+          <div class="find-name">Stanley Quencher H2.0, 40oz</div>
+          <div class="find-note">Still the one everyone's actually using, not just posting about. Holds ice for most of a day, fits nearly every cup holder, and the handle means it survives being knocked off a desk more than it should.</div>
+          <div class="find-footer">
+            <div class="price">$45 <span>· 40oz</span></div>
+            <a class="get" href="https://www.amazon.com/dp/B0BD6XRYK8?tag=hushlist-20" target="_blank" rel="noopener sponsored">Get it →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="find">
+        <div class="rank-tag">03</div>
+        <div class="photo"><img src="images/anker.png" alt="Anker MagGo Power Bank, 10,000mAh"></div>
+        <div class="find-body">
+          <div class="find-name">Anker MagGo Power Bank, 10,000mAh</div>
+          <div class="find-note">Snaps onto the back of your phone and charges it wirelessly — no cable, no fumbling in a bag. Enough capacity for a full extra day of use, small enough to forget it's in your pocket.</div>
+          <div class="find-footer">
+            <div class="price">$65 <span>· 10,000mAh</span></div>
+            <a class="get" href="https://www.amazon.com/dp/B0D7DKJ75M?tag=hushlist-20" target="_blank" rel="noopener sponsored">Get it →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="find">
+        <div class="rank-tag">04</div>
+        <div class="photo"><img src="images/doctorsbest.png" alt="Doctor's Best Magnesium Glycinate"></div>
+        <div class="find-body">
+          <div class="find-name">Doctor's Best Magnesium Glycinate</div>
+          <div class="find-note">The chelated form your body actually absorbs, not the cheap kind that mostly upsets your stomach. A quiet staple for sleep and recovery with a genuinely loyal following — 100,000+ reviews and counting.</div>
+          <div class="find-footer">
+            <div class="price">$16 <span>· 240ct</span></div>
+            <a class="get" href="https://www.amazon.com/dp/B000BD0RT0?tag=hushlist-20" target="_blank" rel="noopener sponsored">Get it →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="find">
+        <div class="rank-tag">05</div>
+        <div class="photo"><img src="images/decobros.png" alt="DecoBros Coffee Pod Drawer"></div>
+        <div class="find-body">
+          <div class="find-name">DecoBros Coffee Pod Drawer</div>
+          <div class="find-note">The kind of upgrade you don't think you need until your counter is quietly organized for the first time. Slides under most machines and turns a cluttered corner into one you don't mind people seeing.</div>
+          <div class="find-footer">
+            <div class="price">$25 <span>· 42 pods</span></div>
+            <a class="get" href="https://www.amazon.com/dp/B00CFTOXYI?tag=hushlist-20" target="_blank" rel="noopener sponsored">Get it →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="disclosure">
+      <p>As an Amazon Associate, HushList earns from qualifying purchases. Prices and availability are accurate as of publish and may change on Amazon's end. This doesn't cost you anything extra — it just tells us which finds are actually worth featuring.</p>
+    </div>
+
+    <footer><p>© 2026 HushList</p></footer>
+  </div>
+</body>
+</html>
